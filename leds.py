@@ -9,17 +9,17 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 # Set pin number for each LED
-led1 = 4
-led2 = 17
-led3 = 27
-led4 = 22
-led5 = 18
-led6 = 23
-led7 = 24
-led8 = 25
+led0 = 4
+led1 = 17
+led2 = 27
+led3 = 22
+led4 = 18
+led5 = 23
+led6 = 24
+led7 = 25
 
 # Put all LED pins into a list
-leds = [led1, led2, led3, led4, led5, led6, led7, led8]
+leds = [led0, led1, led2, led3, led4, led5, led6, led7]
 
 # Set all LED pins as outputs and set them LOW
 GPIO.setup(leds, GPIO.OUT)
@@ -45,7 +45,30 @@ def RandomBlink(delay):
 		GPIO.output(random.sample(leds, 1), GPIO.HIGH)
 		time.sleep(delay)
 
+# Flashes odd numbered LEDS, then even numbered LEDs
+def Danger(delay):
+	while(True):
+		GPIO.output(leds, GPIO.LOW)
+		GPIO.output(leds[::2], GPIO.HIGH)
+		time.sleep(delay)
+		GPIO.output(leds, GPIO.LOW)
+		GPIO.output(leds[1::2], GPIO.HIGH)
+		time.sleep(delay)
+
+# Flashes LEDs like a line of marching ants
+def Ants(delay):
+	while(True):
+		GPIO.output(leds, GPIO.LOW)
+		GPIO.output(leds[::3], GPIO.HIGH)
+		time.sleep(delay)
+		GPIO.output(leds, GPIO.LOW)
+		GPIO.output(leds[1::3], GPIO.HIGH)
+		time.sleep(delay)
+		GPIO.output(leds, GPIO.LOW)
+		GPIO.output(leds[2::3], GPIO.HIGH)
+		time.sleep(delay)
+
 try:
-    Strobe(0.05)
+	Ants(0.5)
 except KeyboardInterrupt: # Runs cleanup on exiting by keyboard interrupt
     GPIO.cleanup()
