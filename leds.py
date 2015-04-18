@@ -68,7 +68,27 @@ def Ants(delay):
 		GPIO.output(leds[2::3], GPIO.HIGH) # Turns on every third LED starting from index 2
 		time.sleep(delay)
 
+# Turns on LEDs one-by-one, then turns them off in the same order
+def Line(delay):
+	while(True):
+		for i in leds:                # Turns on each LED in the list
+			GPIO.output(i, GPIO.HIGH)
+			time.sleep(delay)
+		for i in leds:                # Turns off each LED in the list in the same order
+			GPIO.output(i, GPIO.LOW)
+			time.sleep(delay)
+
+# Turns on LEDs one-by-one, then turns them off in reverse order
+def ReverseLine(delay):
+	while(True):
+		for i in leds:                # Turns on each LED in the list
+			GPIO.output(i, GPIO.HIGH)
+			time.sleep(delay)
+		for i in reversed(leds):
+			GPIO.output(i, GPIO.LOW)  # Turns off each LED in the list in reverse order
+			time.sleep(delay)
+
 try:
-	Ants(0.5)
+	ReverseLine(0.05)
 except KeyboardInterrupt: # Runs until keyboard interrupt, then runs GPIO cleanup
 	GPIO.cleanup()
