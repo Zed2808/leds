@@ -29,11 +29,11 @@ GPIO.output(leds, GPIO.LOW)
 # Strobes LEDs back and forth one-by-one
 def Strobe(delay):
 	while(True):
-		for i in leds:
+		for i in leds:                      # Turns off all LEDs, then turns on next LED in the list
 			GPIO.output(leds, GPIO.LOW)
 			GPIO.output(i, GPIO.HIGH)
 			time.sleep(delay)
-		for i in reversed(leds):
+		for i in reversed(leds):            # Does the same as above, but in reverse order
 			GPIO.output(leds, GPIO.LOW)
 			GPIO.output(i, GPIO.HIGH)
 			time.sleep(delay)
@@ -42,33 +42,33 @@ def Strobe(delay):
 def RandomBlink(delay):
 	while(True):
 		GPIO.output(leds, GPIO.LOW)
-		GPIO.output(random.sample(leds, 1), GPIO.HIGH)
+		GPIO.output(random.sample(leds, 1), GPIO.HIGH) # Turns on one random LED from the list
 		time.sleep(delay)
 
 # Flashes odd numbered LEDS, then even numbered LEDs
 def Danger(delay):
 	while(True):
 		GPIO.output(leds, GPIO.LOW)
-		GPIO.output(leds[::2], GPIO.HIGH)
+		GPIO.output(leds[::2], GPIO.HIGH)  # Turns on every second LED starting from index 0
 		time.sleep(delay)
 		GPIO.output(leds, GPIO.LOW)
-		GPIO.output(leds[1::2], GPIO.HIGH)
+		GPIO.output(leds[1::2], GPIO.HIGH) # Turns on every second LED starting from index 1
 		time.sleep(delay)
 
 # Flashes LEDs like a line of marching ants
 def Ants(delay):
 	while(True):
 		GPIO.output(leds, GPIO.LOW)
-		GPIO.output(leds[::3], GPIO.HIGH)
+		GPIO.output(leds[::3], GPIO.HIGH)  # Turns on every third LED starting from index 0
 		time.sleep(delay)
 		GPIO.output(leds, GPIO.LOW)
-		GPIO.output(leds[1::3], GPIO.HIGH)
+		GPIO.output(leds[1::3], GPIO.HIGH) # Turns on every third LED starting from index 1
 		time.sleep(delay)
 		GPIO.output(leds, GPIO.LOW)
-		GPIO.output(leds[2::3], GPIO.HIGH)
+		GPIO.output(leds[2::3], GPIO.HIGH) # Turns on every third LED starting from index 2
 		time.sleep(delay)
 
 try:
 	Ants(0.5)
-except KeyboardInterrupt: # Runs cleanup on exiting by keyboard interrupt
-    GPIO.cleanup()
+except KeyboardInterrupt: # Runs until keyboard interrupt, then runs GPIO cleanup
+	GPIO.cleanup()
