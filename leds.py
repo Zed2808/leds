@@ -82,8 +82,37 @@ def ReverseLine(delay):
 		GPIO.output(i, GPIO.LOW)  # Turns off each LED in the list in reverse order
 		time.sleep(delay)
 
+# Turns on LEDs starting from the middle, then turns them off in the same order
+def FromMiddle(delay):
+	GPIO.output(leds[3], GPIO.HIGH)
+	GPIO.output(leds[4], GPIO.HIGH)
+	time.sleep(delay)
+	GPIO.output(leds[2], GPIO.HIGH)
+	GPIO.output(leds[5], GPIO.HIGH)
+	time.sleep(delay)
+	GPIO.output(leds[1], GPIO.HIGH)
+	GPIO.output(leds[6], GPIO.HIGH)
+	time.sleep(delay)
+	GPIO.output(leds[0], GPIO.HIGH)
+	GPIO.output(leds[7], GPIO.HIGH)
+	time.sleep(delay)
+
+	GPIO.output(leds[3], GPIO.LOW)
+	GPIO.output(leds[4], GPIO.LOW)
+	time.sleep(delay)
+	GPIO.output(leds[2], GPIO.LOW)
+	GPIO.output(leds[5], GPIO.LOW)
+	time.sleep(delay)
+	GPIO.output(leds[1], GPIO.LOW)
+	GPIO.output(leds[6], GPIO.LOW)
+	time.sleep(delay)
+	GPIO.output(leds[0], GPIO.LOW)
+	GPIO.output(leds[7], GPIO.LOW)
+	time.sleep(delay)
+
 try:
 	while(True):
-		Line(0.05)
+		FromMiddle(0.05)
+		time.sleep(1)
 except KeyboardInterrupt: # Runs until keyboard interrupt, then runs GPIO cleanup
 	GPIO.cleanup()
