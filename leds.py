@@ -28,67 +28,62 @@ GPIO.output(leds, GPIO.LOW)
 
 # Strobes LEDs back and forth one-by-one
 def Strobe(delay):
-	while(True):
-		for i in leds:                      # Turns off all LEDs, then turns on next LED in the list
-			GPIO.output(leds, GPIO.LOW)
-			GPIO.output(i, GPIO.HIGH)
-			time.sleep(delay)
-		for i in reversed(leds):            # Does the same as above, but in reverse order
-			GPIO.output(leds, GPIO.LOW)
-			GPIO.output(i, GPIO.HIGH)
-			time.sleep(delay)
+	for i in leds:                      # Turns off all LEDs, then turns on next LED in the list
+		GPIO.output(leds, GPIO.LOW)
+		GPIO.output(i, GPIO.HIGH)
+		time.sleep(delay)
+	for i in reversed(leds):            # Does the same as above, but in reverse order
+		GPIO.output(leds, GPIO.LOW)
+		GPIO.output(i, GPIO.HIGH)
+		time.sleep(delay)
 
 # Flashes a random LED every <delay> seconds
 def RandomBlink(delay):
-	while(True):
-		GPIO.output(leds, GPIO.LOW)
-		GPIO.output(random.sample(leds, 1), GPIO.HIGH) # Turns on one random LED from the list
-		time.sleep(delay)
+	GPIO.output(leds, GPIO.LOW)
+	GPIO.output(random.sample(leds, 1), GPIO.HIGH) # Turns on one random LED from the list
+	time.sleep(delay)
 
 # Flashes odd numbered LEDS, then even numbered LEDs
 def Danger(delay):
-	while(True):
-		GPIO.output(leds, GPIO.LOW)
-		GPIO.output(leds[::2], GPIO.HIGH)  # Turns on every second LED starting from index 0
-		time.sleep(delay)
-		GPIO.output(leds, GPIO.LOW)
-		GPIO.output(leds[1::2], GPIO.HIGH) # Turns on every second LED starting from index 1
-		time.sleep(delay)
+	GPIO.output(leds, GPIO.LOW)
+	GPIO.output(leds[::2], GPIO.HIGH)  # Turns on every second LED starting from index 0
+	time.sleep(delay)
+	GPIO.output(leds, GPIO.LOW)
+	GPIO.output(leds[1::2], GPIO.HIGH) # Turns on every second LED starting from index 1
+	time.sleep(delay)
 
 # Flashes LEDs like a line of marching ants
 def Ants(delay):
-	while(True):
-		GPIO.output(leds, GPIO.LOW)
-		GPIO.output(leds[::3], GPIO.HIGH)  # Turns on every third LED starting from index 0
-		time.sleep(delay)
-		GPIO.output(leds, GPIO.LOW)
-		GPIO.output(leds[1::3], GPIO.HIGH) # Turns on every third LED starting from index 1
-		time.sleep(delay)
-		GPIO.output(leds, GPIO.LOW)
-		GPIO.output(leds[2::3], GPIO.HIGH) # Turns on every third LED starting from index 2
-		time.sleep(delay)
+	GPIO.output(leds, GPIO.LOW)
+	GPIO.output(leds[::3], GPIO.HIGH)  # Turns on every third LED starting from index 0
+	time.sleep(delay)
+	GPIO.output(leds, GPIO.LOW)
+	GPIO.output(leds[1::3], GPIO.HIGH) # Turns on every third LED starting from index 1
+	time.sleep(delay)
+	GPIO.output(leds, GPIO.LOW)
+	GPIO.output(leds[2::3], GPIO.HIGH) # Turns on every third LED starting from index 2
+	time.sleep(delay)
 
 # Turns on LEDs one-by-one, then turns them off in the same order
 def Line(delay):
-	while(True):
-		for i in leds:                # Turns on each LED in the list
-			GPIO.output(i, GPIO.HIGH)
-			time.sleep(delay)
-		for i in leds:                # Turns off each LED in the list in the same order
-			GPIO.output(i, GPIO.LOW)
-			time.sleep(delay)
+	for i in leds:                # Turns on each LED in the list
+		GPIO.output(i, GPIO.HIGH)
+		time.sleep(delay)
+	for i in leds:                # Turns off each LED in the list in the same order
+		GPIO.output(i, GPIO.LOW)
+		time.sleep(delay)
 
 # Turns on LEDs one-by-one, then turns them off in reverse order
 def ReverseLine(delay):
-	while(True):
-		for i in leds:                # Turns on each LED in the list
-			GPIO.output(i, GPIO.HIGH)
-			time.sleep(delay)
-		for i in reversed(leds):
-			GPIO.output(i, GPIO.LOW)  # Turns off each LED in the list in reverse order
-			time.sleep(delay)
+	for i in leds:                # Turns on each LED in the list
+		GPIO.output(i, GPIO.HIGH)
+		time.sleep(delay)
+	for i in reversed(leds):
+		GPIO.output(i, GPIO.LOW)  # Turns off each LED in the list in reverse order
+		time.sleep(delay)
 
 try:
-	ReverseLine(0.05)
+	while(True):
+		Line(0.05)
 except KeyboardInterrupt: # Runs until keyboard interrupt, then runs GPIO cleanup
 	GPIO.cleanup()
